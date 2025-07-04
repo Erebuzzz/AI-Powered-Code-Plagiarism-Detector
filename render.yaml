@@ -4,6 +4,7 @@ services:
   - type: web
     name: ai-plagiarism-detector-api
     env: python
+    python_version: 3.9
     plan: free
     region: oregon
     buildCommand: >
