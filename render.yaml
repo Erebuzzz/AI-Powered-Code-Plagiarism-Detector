@@ -36,7 +36,7 @@ services:
   - type: web
     name: ai-plagiarism-detector-web
     runtime: static
-    buildCommand: cd frontend && npm install && npm run build
+    buildCommand: cd frontend && npm install && npm run build  # Using npm install to resolve version conflicts
     staticPublishPath: frontend/build
     envVars:
       - key: REACT_APP_API_URL
