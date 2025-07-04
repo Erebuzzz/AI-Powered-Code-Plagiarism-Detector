@@ -21,7 +21,7 @@ try:
     from mangum import Mangum
     handler = Mangum(app)
     
-except Exception as e:  # Add "as e" here to capture the exception
+except Exception as e:  # Added "as e" to properly capture the exception
     # Create a simple FastAPI app for diagnostics if imports fail
     from fastapi import FastAPI
     from mangum import Mangum
