@@ -28,16 +28,12 @@ services:
         value: "info"
     autoDeploy: true
 
-  # Frontend Web Application - Using static site
-  - type: static
+  # Frontend Web Application - Changed to correct type
+  - type: web
     name: ai-plagiarism-detector-web
-    env: static
+    env: static  # This tells Render it's a static site
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: ./frontend/build
-    headers:
-      - path: /*
-        name: Cache-Control
-        value: no-cache
     envVars:
       - key: REACT_APP_API_URL
         fromService:
@@ -47,6 +43,10 @@ services:
       - key: REACT_APP_ENV
         value: production
     autoDeploy: true
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
 
 # Deployment environment and notifications
 envVarGroups:
