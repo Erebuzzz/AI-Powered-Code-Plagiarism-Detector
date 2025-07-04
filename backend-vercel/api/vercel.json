@@ -1,0 +1,8 @@
+// filepath: c:\Users\kshit\OneDrive\Documents\GitHub\AI-Powered-Code-Plagiarism-Detector\backend-vercel\vercel.json
+{
+  "version": 2,
+  "routes": [
+    { "src": "/api/comparison/compare", "dest": "/api/compare.py" },
+    { "src": "/(.*)", "dest": "/api/index.py" }
+  ]
+}

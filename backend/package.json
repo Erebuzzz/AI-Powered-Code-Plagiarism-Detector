@@ -1,0 +1,12 @@
+{
+  "name": "ai-plagiarism-detector-backend",
+  "version": "1.0.0",
+  "description": "Backend for AI-Powered Code Plagiarism Detector",
+  "main": "app/api/index.py",
+  "scripts": {
+    "start": "uvicorn app.main:app --host 0.0.0.0 --port 8000"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

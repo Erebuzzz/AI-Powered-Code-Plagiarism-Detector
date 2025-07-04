@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    { 
+      "src": "app/api/index.py", 
+      "use": "@vercel/python",
+      "config": { 
+        "runtime": "python3.9",
+        "requirementsPath": "requirements-vercel.txt"
+      }
+    }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "app/api/index.py" }
+  ],
+  "env": {
+    "PYTHONPATH": "."
+  }
+}

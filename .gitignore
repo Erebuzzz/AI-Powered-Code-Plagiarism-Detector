@@ -1,0 +1,18 @@
+# Backend
+backend/__pycache__/
+backend/*.pyc
+backend/.env
+backend/plagiarism_detector.db
+
+# Frontend
+frontend/node_modules/
+frontend/build/
+frontend/.env.local
+
+# General
+.DS_Store
+*.log
+.vscode/
+.env
+
+render.yaml
