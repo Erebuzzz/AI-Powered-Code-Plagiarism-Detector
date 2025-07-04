@@ -28,7 +28,7 @@ except Exception as import_error:
     
     @app.get("/")
     def read_root():
-        return {"message": "Import error in Render deployment", "error": str(import_error)}
+        return {"message": "Import error in Render deployment", "error": "Application initialization failed"}
     
     @app.get("/debug")
     def debug():
