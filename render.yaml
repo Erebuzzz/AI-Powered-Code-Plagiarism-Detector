@@ -33,12 +33,10 @@ services:
     autoDeploy: true
 
   # Frontend Web Application
-  - type: web
+  - type: static
     name: ai-plagiarism-detector-web
-    runtime: static
     buildCommand: cd frontend && npm install && npm run build
-    rootDir: frontend
-    staticPublishPath: ./build
+    publishDir: frontend/build
     envVars:
       - key: REACT_APP_API_URL
         fromService:
