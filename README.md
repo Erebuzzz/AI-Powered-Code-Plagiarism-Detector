@@ -166,7 +166,7 @@ AI-Powered-Code-Plagiarism-Detector/
 
 ### **Step 1: Clone Repository**
 ```bash
-git clone https://github.com/yourusername/AI-Powered-Code-Plagiarism-Detector.git
+git clone https://github.com/airaous/AI-Powered-Code-Plagiarism-Detector.git
 cd AI-Powered-Code-Plagiarism-Detector
 ```
 
@@ -622,10 +622,10 @@ SOFTWARE.
 
 ## 📞 Support & Contact
 
-- **Issues**: [GitHub Issues](https://github.com/airaous/AI-Powered-Code-Plagiarism-Detector/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/airaous/AI-Powered-Code-Plagiarism-Detector/discussions)
-- **Email**: ayrawrk@gmail.com
-- **LinkedIn**: [Ayraious](https://www.linkedin.com/in/ayraious/)
+- **Issues**: [GitHub Issues](https://github.com/yourusername/AI-Powered-Code-Plagiarism-Detector/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/yourusername/AI-Powered-Code-Plagiarism-Detector/discussions)
+- **Email**: your.email@example.com
+- **LinkedIn**: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
 
 ---
 
@@ -634,3 +634,7 @@ SOFTWARE.
 **🚀 Ready to detect code plagiarism with AI? Get started now!**
 
 ---
+
+*Last Updated: January 2025*
+*Version: 1.0.0*
+*Status: Production Ready*
