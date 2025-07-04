@@ -11,7 +11,7 @@ try:
     # Configure CORS for Vercel
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["https://ai-plagiarism-detector.vercel.app", "http://localhost:3000"],
+        allow_origins=["https://ai-plagiarism-detector-web.onrender.com", "http://localhost:3000"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -21,7 +21,7 @@ try:
     from mangum import Mangum
     handler = Mangum(app)
     
-except Exception as e:
+except Exception as e:  # Make sure we capture the exception as 'e'
     # Create a simple FastAPI app for diagnostics if imports fail
     from fastapi import FastAPI
     from mangum import Mangum
