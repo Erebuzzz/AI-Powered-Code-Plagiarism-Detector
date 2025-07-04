@@ -14,5 +14,3 @@ frontend/.env.local
 *.log
 .vscode/
 .env
-
-render.yaml

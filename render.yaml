@@ -1,0 +1,70 @@
+// filepath: c:\Users\kshit\OneDrive\Documents\GitHub\AI-Powered-Code-Plagiarism-Detector\.github\render.yaml
+services:
+  # Backend API Service
+  - type: web
+    name: ai-plagiarism-detector-api
+    env: python
+    plan: free
+    region: oregon
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "true"
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: HUGGINGFACE_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        value: sqlite:///./plagiarism_detector.db
+      - key: ALLOWED_HOSTS
+        value: '["https://ai-plagiarism-detector-web.onrender.com", "http://localhost:3000"]'
+      - key: VERCEL
+        value: "0"
+      - key: DEBUG
+        value: "False"
+      - key: LOG_LEVEL
+        value: "info"
+    autoDeploy: true
+
+  # Frontend Web Application
+  - type: web
+    name: ai-plagiarism-detector-web
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npx serve -s build -l $PORT
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: REACT_APP_API_URL
+        fromService:
+          name: ai-plagiarism-detector-api
+          type: web
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: REACT_APP_ENV
+        value: production
+    autoDeploy: true
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
+
+  # Database Service
+  - type: pserv
+    name: ai-plagiarism-detector-db
+    env: postgres
+    plan: free
+    region: oregon
+    ipAllowList: []
+
+# Deployment environment and notifications
+envVarGroups:
+  - name: ai-plagiarism-detector-env
+    envVars:
+      - key: PROJECT_NAME
+        value: "AI-Powered Code Plagiarism Detector"
+      - key: DEPLOYMENT_ENVIRONMENT
+        value: "production"
