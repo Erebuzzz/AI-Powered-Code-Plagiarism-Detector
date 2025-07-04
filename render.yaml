@@ -6,7 +6,11 @@ services:
     env: python
     plan: free
     region: oregon
-    buildCommand: cd backend && pip install -r requirements.txt
+    buildCommand: >
+      cd backend && 
+      pip install -U pip setuptools wheel &&
+      pip install -r requirements-dev.txt &&
+      pip install -r requirements.txt
     startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /api/health
     envVars:
@@ -17,7 +21,7 @@ services:
       - key: HUGGINGFACE_API_KEY
         sync: false
       - key: DATABASE_URL
-        value: sqlite:///./plagiarism_detector.db  # Using SQLite for simplicity
+        value: sqlite:///./plagiarism_detector.db
       - key: ALLOWED_HOSTS
         value: '["https://ai-plagiarism-detector-web.onrender.com", "http://localhost:3000"]'
       - key: VERCEL
@@ -28,12 +32,13 @@ services:
         value: "info"
     autoDeploy: true
 
-  # Frontend Web Application - Changed to correct type
+  # Frontend Web Application
   - type: web
     name: ai-plagiarism-detector-web
-    env: static  # This tells Render it's a static site
+    runtime: static
     buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: ./frontend/build
+    rootDir: frontend
+    staticPublishPath: ./build
     envVars:
       - key: REACT_APP_API_URL
         fromService:
