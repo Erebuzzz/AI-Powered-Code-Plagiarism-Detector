@@ -7,16 +7,19 @@ from app.services.code_processor import CodeProcessor
 from app.services.ai_analyzer import AIAnalyzer
 
 class PlagiarismDetector:
-    """Main plagiarism detection service"""
-    
+    """Main plagiarism detection service."""
+
     def __init__(self):
         self.code_processor = CodeProcessor()
         self.ai_analyzer = AIAnalyzer()
-    
+
     async def compare_code(self, submission1: CodeSubmission, submission2: CodeSubmission) -> ComparisonResult:
-        """Compare two code submissions for plagiarism"""
+        """
+        Compare two code submissions for plagiarism.
+        Returns a ComparisonResult with structural, semantic, and overall similarity.
+        """
         start_time = time.time()
-        
+
         # Preprocess both code snippets
         processed_code1 = self.code_processor.preprocess_code(
             submission1.content, 
@@ -26,38 +29,38 @@ class PlagiarismDetector:
             submission2.content, 
             submission2.language
         )
-        
+
         # Calculate structural similarity
         structural_sim = self.code_processor.calculate_structural_similarity(
             processed_code1, 
             processed_code2
         )
-        
+
         # Calculate semantic similarity using AI
         semantic_sim = await self.ai_analyzer.calculate_semantic_similarity(
             processed_code1, 
             processed_code2, 
             submission1.language
         )
-        
+
         # Calculate overall similarity
         overall_sim = (structural_sim + semantic_sim) / 2
-        
+
         # Find similar blocks
         similar_blocks = self._find_similar_blocks(
             submission1.content, 
             submission2.content
         )
-        
+
         # Create similarity score
         similarity_score = SimilarityScore(
             structural_similarity=structural_sim,
             semantic_similarity=semantic_sim,
             overall_similarity=overall_sim
         )
-        
+
         analysis_time = time.time() - start_time
-        
+
         return ComparisonResult(
             submission1=submission1,
             submission2=submission2,
@@ -66,7 +69,7 @@ class PlagiarismDetector:
             analysis_time=analysis_time,
             timestamp=datetime.now()
         )
-    
+
     def _find_similar_blocks(self, code1: str, code2: str) -> List[Dict]:
         """Find similar code blocks between two snippets"""
         # This is a simplified implementation

@@ -16,8 +16,6 @@ services:
     envVars:
       - key: PYTHONUNBUFFERED
         value: "true"
-      - key: PYTHON_VERSION
-        value: "3.9.13"  # Set Python version as an environment variable
       - key: OPENAI_API_KEY
         sync: false
       - key: HUGGINGFACE_API_KEY
@@ -26,8 +24,6 @@ services:
         value: sqlite:///./plagiarism_detector.db
       - key: ALLOWED_HOSTS
         value: '["https://ai-plagiarism-detector-web.onrender.com", "http://localhost:3000"]'
-      - key: VERCEL
-        value: "0"
       - key: DEBUG
         value: "False"
       - key: LOG_LEVEL
