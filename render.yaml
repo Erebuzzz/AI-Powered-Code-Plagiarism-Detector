@@ -1,4 +1,4 @@
-// filepath: c:\Users\kshit\OneDrive\Documents\GitHub\AI-Powered-Code-Plagiarism-Detector\.github\render.yaml
+# // filepath: c:\Users\kshit\OneDrive\Documents\GitHub\AI-Powered-Code-Plagiarism-Detector\.github\render.yaml
 services:
   # Backend API Service
   - type: web
@@ -58,7 +58,12 @@ services:
     env: postgres
     plan: free
     region: oregon
-    ipAllowList: []
+    # Use these for access control
+    user: postgres
+    disk:
+      name: data
+      mountPath: /var/lib/postgresql/data
+      sizeGB: 10
 
 # Deployment environment and notifications
 envVarGroups:
