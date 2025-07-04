@@ -53,6 +53,10 @@ services:
       - type: rewrite
         source: /*
         destination: /index.html
+    headers:
+      - path: /*
+        name: Access-Control-Allow-Origin
+        value: "*"
 
 # Deployment environment and notifications
 envVarGroups:

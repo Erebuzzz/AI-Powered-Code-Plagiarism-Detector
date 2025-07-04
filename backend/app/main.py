@@ -1,54 +1,26 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from app.api.endpoints import comparison
-from app.core.config import settings
+from app.api import comparison, health
 
-# Create FastAPI app
-app = FastAPI(
-    title=settings.PROJECT_NAME,
-    version=settings.VERSION,
-    description="AI-powered code plagiarism detection using semantic analysis"
-)
+app = FastAPI(title="Code Plagiarism Detector API")
 
-# Add CORS middleware
+# Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ALLOWED_HOSTS,
+    allow_origins=["*"],  # Temporarily allow all origins for testing
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # Include routers
-app.include_router(
-    comparison.router,
-    prefix=f"{settings.API_V1_STR}/comparison",
-    tags=["comparison"]
-)
+app.include_router(comparison.router, prefix="/api/comparison", tags=["comparison"])
+app.include_router(health.router, prefix="/api", tags=["health"])
 
 @app.get("/")
 async def root():
-    return {
-        "message": f"Welcome to {settings.PROJECT_NAME}",
-        "version": settings.VERSION,
-        "docs": "/docs"
-    }
+    return {"message": "Welcome to the Code Plagiarism Detector API"}
 
 @app.get("/health")
 async def health_check():
-    return {"status": "healthy", "service": settings.PROJECT_NAME}
-
-@app.get("/api/health")
-async def health_check():
-    """Health check endpoint for monitoring"""
-    return {"status": "healthy", "message": "API is running"}
-
-@app.get("/test")
-async def test_route():
-    """Simple test route to verify the API is working"""
-    return {"status": "ok", "message": "API is working"}
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    return {"status": "healthy", "service": "Code Plagiarism Detector API"}
