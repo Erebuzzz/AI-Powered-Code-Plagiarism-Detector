@@ -7,7 +7,7 @@ app = FastAPI(title="Code Plagiarism Detector API")
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Temporarily allow all origins for testing
+    allow_origins=["*"],  # In production, you should specify your frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -19,8 +19,5 @@ app.include_router(health.router, prefix="/api", tags=["health"])
 
 @app.get("/")
 async def root():
-    return {"message": "Welcome to the Code Plagiarism Detector API"}
-
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy", "service": "Code Plagiarism Detector API"}
+    """Root endpoint - redirect to docs."""
+    return {"message": "Welcome to the Code Plagiarism Detector API. Visit /docs for documentation."}
