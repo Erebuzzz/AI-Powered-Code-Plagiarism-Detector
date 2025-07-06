@@ -4,14 +4,16 @@ services:
     env: python
     runtime: python-3.11.6
     buildCommand: |
-      pip install --upgrade pip setuptools wheel
+      pip install --upgrade pip
       pip install -r requirements.txt
-    startCommand: gunicorn --bind 0.0.0.0:$PORT wsgi:app
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --max-requests 50 --timeout 60 wsgi:app
     envVars:
       - key: FLASK_ENV
         value: production
       - key: PORT
         value: 10000
-      - key: PYTHONPATH
-        value: /opt/render/project/src
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: USE_LOCAL_MODELS
+        value: "false"
     rootDir: backend
