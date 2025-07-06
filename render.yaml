@@ -2,11 +2,16 @@ services:
   - type: web
     name: plagiarism-detector-backend
     env: python
-    buildCommand: pip install -r requirements.txt
+    runtime: python-3.11.6
+    buildCommand: |
+      pip install --upgrade pip setuptools wheel
+      pip install -r requirements.txt
     startCommand: gunicorn -w 4 -b 0.0.0.0:$PORT app:app
     envVars:
       - key: FLASK_ENV
         value: production
       - key: PORT
         value: 10000
+      - key: PYTHONPATH
+        value: /opt/render/project/src
     rootDir: backend
