@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
-  experimental: {
-    outputFileTracingRoot: undefined,
-  },
   env: {
     BACKEND_URL: process.env.BACKEND_URL || 'http://localhost:5001',
   },
@@ -17,4 +14,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
