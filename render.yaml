@@ -1,64 +1,12 @@
-# // filepath: c:\Users\kshit\OneDrive\Documents\GitHub\AI-Powered-Code-Plagiarism-Detector\.github\render.yaml
 services:
-  # Backend API Service
   - type: web
-    name: ai-plagiarism-detector-api
+    name: plagiarism-detector-backend
     env: python
-    plan: free
-    region: oregon
-    buildCommand: >
-      cd backend && 
-      pip install -U pip setuptools wheel &&
-      pip install -r requirements-dev.txt &&
-      pip install -r requirements.txt
-    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
-    healthCheckPath: /api/health
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -w 4 -b 0.0.0.0:$PORT app:app
     envVars:
-      - key: PYTHONUNBUFFERED
-        value: "true"
-      - key: OPENAI_API_KEY
-        sync: false
-      - key: HUGGINGFACE_API_KEY
-        sync: false
-      - key: DATABASE_URL
-        value: sqlite:///./plagiarism_detector.db
-      - key: ALLOWED_HOSTS
-        value: '["https://ai-plagiarism-detector-web.onrender.com", "http://localhost:3000"]'
-      - key: DEBUG
-        value: "False"
-      - key: LOG_LEVEL
-        value: "info"
-    autoDeploy: true
-
-  # Frontend Web Application - FIXED CONFIGURATION
-  - type: web
-    name: ai-plagiarism-detector-web
-    runtime: static
-    buildCommand: cd frontend && npm install --legacy-peer-deps && npm run build
-    staticPublishPath: frontend/build
-    envVars:
-      - key: REACT_APP_API_URL
-        fromService:
-          name: ai-plagiarism-detector-api
-          type: web
-          envVarKey: RENDER_EXTERNAL_URL
-      - key: REACT_APP_ENV
+      - key: FLASK_ENV
         value: production
-    autoDeploy: true
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    headers:
-      - path: /*
-        name: Access-Control-Allow-Origin
-        value: "*"
-
-# Deployment environment and notifications
-envVarGroups:
-  - name: ai-plagiarism-detector-env
-    envVars:
-      - key: PROJECT_NAME
-        value: "AI-Powered Code Plagiarism Detector"
-      - key: DEPLOYMENT_ENVIRONMENT
-        value: "production"
+      - key: PORT
+        value: 10000
+    rootDir: backend
