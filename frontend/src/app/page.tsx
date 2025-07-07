@@ -4,72 +4,17 @@ import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { Search, Shield, Zap, Brain, FileCode, AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
 import CodeEditor from './components/CodeEditor';
-import ResultsPanel from './components/ResultsPanel';
+import ResultsPanel, { AnalysisResult } from './components/ResultsPanel';
 import UploadArea from './components/UploadArea';
 import ThemeToggle from './components/ThemeToggle';
 
-interface AnalysisResult {
-  analysis: {
-    detected_language: string;
-    lines_of_code: {
-      total: number;
-      code: number;
-      comments: number;
-      blank: number;
-    };
-    complexity_metrics: {
-      cyclomatic_complexity: number;
-      function_count: number;
-      class_count: number;
-      nesting_depth?: number;
-    };
-    structure_analysis?: {
-      control_flow?: {
-        if_statements?: number;
-        loops?: number;
-        switches?: number;
-        try_catch?: number;
-      };
-      function_names?: string[];
-      imports?: string[];
-      variable_names?: string[];
-      string_literals?: string[];
-    };
-    patterns?: {
-      algorithm_patterns?: string[];
-      data_structures?: string[];
-      design_patterns?: string[];
-    };
-    code_quality?: {
-      readability_score?: number;
-      maintainability_index?: number;
-      code_smells?: string[];
-      best_practices?: Record<string, boolean>;
-    };
-  };
-  similarity: {
-    matches: Array<{
-      id: number;
-      similarity_score: number;
-      description: string;
-      source: string;
-      code_snippet: string;
-    }>;
-    highest_similarity: number;
-    risk_level: string;
-    total_checked: number;
-  };
-  timestamp: string;
-  language: string;
-}
-
 export default function Home() {
-  const [code, setCode] = useState('');
-  const [language, setLanguage] = useState('python');
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [code, setCode] = useState<string>('');
+  const [language, setLanguage] = useState<string>('python');
+  const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
   const [results, setResults] = useState<AnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [useEnhanced, setUseEnhanced] = useState(false);
+  const [useEnhanced, setUseEnhanced] = useState<boolean>(false);
 
   const handleAnalyze = useCallback(async () => {
     if (!code.trim()) {
@@ -145,7 +90,6 @@ export default function Home() {
     };
     const config = configs[riskLevel as keyof typeof configs] || configs.low;
     const Icon = config.icon;
-    
     return (
       <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${config.color}`}>
         <Icon size={12} />

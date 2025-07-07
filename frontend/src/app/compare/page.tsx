@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { GitCompare, ArrowLeftRight, Code } from 'lucide-react';
 
 export default function ComparisonTool() {
-  const [code1, setCode1] = useState('');
-  const [code2, setCode2] = useState('');
-  const [language, setLanguage] = useState('python');
+  const [code1, setCode1] = useState<string>('');
+  const [code2, setCode2] = useState<string>('');
+  const [language, setLanguage] = useState<string>('python');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">

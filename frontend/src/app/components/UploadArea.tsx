@@ -14,7 +14,7 @@ export default function UploadArea({ onFileUploadAction }: UploadAreaProps) {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        const content = e.target?.result as string;
+        const content = (e.target?.result as string) || '';
         onFileUploadAction(content, file.name);
       };
       reader.readAsText(file);

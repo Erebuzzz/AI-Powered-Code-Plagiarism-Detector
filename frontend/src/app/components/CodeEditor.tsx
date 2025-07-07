@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Editor } from '@monaco-editor/react';
-import { useTheme } from '../contexts/ThemeContext';
+import { Editor } from "@monaco-editor/react";
+import { useTheme } from "../contexts/ThemeContext";
 
-interface CodeEditorProps {
+export interface CodeEditorProps {
   value: string;
   onChangeAction: (value: string) => void;
   language: string;
@@ -12,28 +12,28 @@ interface CodeEditorProps {
 
 export default function CodeEditor({ value, onChangeAction, language, placeholder }: CodeEditorProps) {
   const { theme } = useTheme();
-  
+
   const handleEditorChange = (value: string | undefined) => {
-    onChangeAction(value || '');
+    onChangeAction(value || "");
   };
 
   const getMonacoLanguage = (lang: string) => {
     const langMap: Record<string, string> = {
-      'python': 'python',
-      'javascript': 'javascript',
-      'typescript': 'typescript',
-      'java': 'java',
-      'cpp': 'cpp',
-      'c': 'c',
-      'csharp': 'csharp',
-      'php': 'php',
-      'ruby': 'ruby',
-      'go': 'go',
-      'rust': 'rust',
-      'swift': 'swift',
-      'kotlin': 'kotlin',
+      python: "python",
+      javascript: "javascript",
+      typescript: "typescript",
+      java: "java",
+      cpp: "cpp",
+      c: "c",
+      csharp: "csharp",
+      php: "php",
+      ruby: "ruby",
+      go: "go",
+      rust: "rust",
+      swift: "swift",
+      kotlin: "kotlin",
     };
-    return langMap[lang] || 'plaintext';
+    return langMap[lang] || "plaintext";
   };
 
   return (
@@ -43,16 +43,16 @@ export default function CodeEditor({ value, onChangeAction, language, placeholde
         language={getMonacoLanguage(language)}
         value={value}
         onChange={handleEditorChange}
-        theme={theme === 'dark' ? 'vs-dark' : 'vs-light'}
+        theme={theme === "dark" ? "vs-dark" : "vs-light"}
         options={{
           minimap: { enabled: false },
-          lineNumbers: 'on',
+          lineNumbers: "on",
           roundedSelection: false,
           scrollBeyondLastLine: false,
           automaticLayout: true,
           tabSize: 2,
           insertSpaces: true,
-          wordWrap: 'on',
+          wordWrap: "on",
           fontSize: 14,
           fontFamily: 'Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
           suggest: {
@@ -73,13 +73,13 @@ export default function CodeEditor({ value, onChangeAction, language, placeholde
             strings: true,
           },
           folding: true,
-          foldingStrategy: 'indentation',
-          showFoldingControls: 'always',
+          foldingStrategy: "indentation",
+          showFoldingControls: "always",
           unfoldOnClickAfterEndOfLine: false,
-          renderLineHighlight: 'line',
+          renderLineHighlight: "line",
           smoothScrolling: true,
-          cursorBlinking: 'blink',
-          renderWhitespace: 'selection',
+          cursorBlinking: "blink",
+          renderWhitespace: "selection",
         }}
         loading={
           <div className="flex items-center justify-center h-[400px] text-gray-500">
